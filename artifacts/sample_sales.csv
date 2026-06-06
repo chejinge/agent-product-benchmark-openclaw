@@ -1,0 +1,23 @@
+order_id,date,product,quantity,unit_price,discount_rate,customer_id,region
+ORD-001,2026-01-03,Widget A,2,100,0.10,C-100,North
+ORD-002,2026-01-05,Widget B,1,50,0.00,,South
+ORD-001,2026-01-03,Widget A,2,100,0.10,C-100,North
+ORD-003,,Widget C,3,80,0.00,C-200,East
+ORD-004,2026-01-10,Widget A,1,100,0.20,C-101,West
+ORD-005,2026-01-11,Widget B,2,50,0.00,C-102,North
+ORD-006,2026-01-12,Gadget X,5,200,0.15,C-103,South
+ORD-007,2026-01-13,Widget A,3,100,0.10,C-104,East
+ORD-008,2026-01-14,Widget B,0,50,0.00,C-105,North
+ORD-009,2026-01-15,Gadget X,2,200,0.25,C-106,West
+ORD-010,2026-01-16,Widget C,4,80,0.00,C-107,South
+ORD-011,2026-01-17,Widget A,1.5,100,0.20,C-108,North
+ORD-012,2026-01-18,Widget B,3,50,0.10,,East
+ORD-013,2026-01-19,Gadget X,2,200,0.00,C-110,West
+ORD-014,2026-01-20,Widget A,6,100,0.15,C-111,North
+ORD-015,2026-01-21,Widget C,2,80,0.00,C-112,South
+ORD-015,2026-01-21,Widget C,2,80,0.00,C-112,South
+ORD-016,2026-01-22,Gadget X,1,200,0.30,C-113,East
+ORD-017,2026-01-23,Widget B,4,50,0.00,C-114,West
+ORD-018,2026-01-24,Widget A,,100,0.10,C-115,North
+ORD-019,2026-01-25,Gadget X,3,200,0.20,C-116,South
+ORD-020,2026-01-26,Widget C,2,80,0.00,C-117,East
