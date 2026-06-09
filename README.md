@@ -1,64 +1,50 @@
 # Agent Product Benchmark — OpenClaw
 
-> A structured benchmark for evaluating AI Agent capabilities across autonomy, tool utilization, and stability.
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## Overview
 
-This repository defines a multi-case benchmark suite designed to test how well an AI Agent can:
+This benchmark evaluates autonomous AI agents on real-world product engineering tasks. Each task simulates a common workflow that software teams encounter daily: creating repositories, processing data, fixing bugs, and managing SaaS operations.
 
-- **Autonomously** navigate complex, multi-step tasks without excessive human guidance
-- **Utilize tools** effectively (API calls, file I/O, shell commands, browser automation)
-- **Maintain stability** under edge cases, errors, and rollback scenarios
+Agents are scored across four dimensions: **Autonomy**, **Tool Utilization**, **Accuracy**, and **Stability**. See [rubric/scoring.md](rubric/scoring.md) for the full scoring methodology.
 
-## Benchmark Cases
+## Task Categories
 
-| # | Case | Domain | Key Skills Tested |
-|---|------|--------|-------------------|
-| 1 | GitHub Repo Creation | DevOps / API | REST API usage, repo initialization, README authoring |
-| 2 | CSV File Processing | Data / Logic | Data quality checks, computed columns, anomaly detection |
-| 3 | Node.js Bug Fix | Code / Debugging | Multi-file bug detection, test-driven fixing |
-| 4 | SaaS Refund Workflow | Business Logic | Prorated refund calculation, rollback, idempotency |
-| 5 | SaaS Billing Downgrade | Business Logic | Full workflow: validation → refund → downgrade → rollback → audit → email |
-
-## Repository Structure
-
-```
-/
-├── README.md                    ← This file
-├── rubric/
-│   └── scoring.md               ← Scoring formula & evaluation criteria
-├── tasks/
-│   ├── github_repo_creation.md  ← Task 1: Create a public GitHub repo
-│   ├── csv_file_processing.md   ← Task 2: Process & analyze CSV data
-│   ├── node_bug_fix.md          ← Task 3: Fix bugs in a Node.js project
-│   ├── saas_refund_workflow.md  ← Task 4: Implement refund workflow
-│   ├── saas_billing_downgrade.md← Task 5: Full billing downgrade pipeline
-├── results/
-│   └── summary.md               ← Cross-agent comparison results
-├── artifacts/
-│   ├── sales_data_agent_benchmark.csv  ← Sample CSV for Task 2
-│   ├── agent_code_benchmark_advanced.zip ← Sample Node.js project for Task 3
-│   └── saas_billing_downgrade_benchmark.zip ← SaaS billing project for Task 5
-```
+| Task | Description | Difficulty |
+|---|---|---|
+| [GitHub Repo Creation](tasks/github_repo_creation.md) | Create a public repo with specified structure and content | Medium |
+| [CSV File Processing](tasks/csv_file_processing.md) | Read CSV, compute summary statistics, output JSON | Medium |
+| [Node.js Bug Fix](tasks/node_bug_fix.md) | Diagnose and fix bugs in a sample Node.js project | Hard |
+| [SaaS Refund Workflow](tasks/saas_refund_workflow.md) | Process refund: validate, prorate, issue, notify | Hard |
+| [SaaS Billing Downgrade](tasks/saas_billing_downgrade.md) | Downgrade plan: check usage, schedule, adjust features | Hard |
 
 ## Scoring
 
-See [`rubric/scoring.md`](rubric/scoring.md) for the full evaluation framework.
+See [rubric/scoring.md](rubric/scoring.md) for the detailed scoring rubric and formula.
 
-Each case is scored on three dimensions:
+## Results
 
-| Dimension | Weight | Description |
-|-----------|--------|-------------|
-| Autonomy | 40% | How much the agent accomplishes without human intervention |
-| Tool Utilization | 30% | Correctness and efficiency of tool/API usage |
-| Stability | 30% | Handling of edge cases, errors, rollback, idempotency |
+See [results/summary.md](results/summary.md) for the latest benchmark results.
+
+## Artifacts
+
+The `artifacts/` directory contains test data used by the benchmark tasks:
+- `sales_data.csv` — Sample sales data for CSV processing task
+- `node_sample_project/` — Sample Node.js project with intentional bugs
 
 ## How to Run
 
-1. Provide the task description and artifacts to the Agent
-2. Record all tool calls, decisions, and outputs
-3. Score each case using the rubric
-4. Aggregate into `results/summary.md`
+1. Clone this repository
+2. Review each task in `tasks/`
+3. Point your agent at the task description and artifacts
+4. Score the agent’s output using `rubric/scoring.md`
+5. Record results in `results/summary.md`
+
+## Contributing
+
+1. Fork this repository
+2. Add new tasks or improve existing ones
+3. Submit a pull request
 
 ## License
 

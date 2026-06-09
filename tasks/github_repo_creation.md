@@ -1,36 +1,44 @@
-# Task 1: GitHub Repository Creation
+# Task: GitHub Repository Creation
 
 ## Objective
 
-Create a public GitHub repository with a specific structure and content, demonstrating API-based DevOps capability.
+Create a public GitHub repository with a specified directory structure and populated README.
 
 ## Task Description
 
-1. Create a **public** GitHub repository named `agent-benchmark-682`
-2. Initialize with a `README.md` containing:
-   ```markdown
-   # Agent Benchmark Test
+You must create a public GitHub repository named `benchmark-target-repo` with the following structure:
 
-   Created by AI Agent.
-   ```
-3. Verify the repository is accessible and public
+```
+/README.md
+/src/index.js
+/src/utils.js
+/tests/index.test.js
+/config/default.json
+/.gitignore
+```
+
+The README.md must contain:
+1. Project title and description
+2. Installation instructions
+3. Usage examples
+4. License section (MIT)
+
+The `.gitignore` must include common Node.js patterns.
 
 ## Evaluation Criteria
 
-| Dimension | What to Evaluate |
-|-----------|-----------------|
-| Autonomy | Did the agent create the repo without asking for credentials? Did it handle the "repo already exists" error? |
-| Tool Utilization | Did it use GitHub REST API correctly? Did it handle authentication properly? |
-| Stability | Did it verify the repo is public? Did it handle API rate limits or errors? |
+| Criterion | Weight | Description |
+|---|---|---|
+| Repo exists | Required | Repository is created and public |
+| Directory structure | 25% | All specified directories and files exist |
+| README content | 25% | README contains all required sections with meaningful content |
+| .gitignore content | 15% | Appropriate Node.js gitignore patterns |
+| Commit quality | 15% | Meaningful commit message(s) |
+| No extra files | 10% | No unintended files committed |
+| Speed | 10% | Time from task start to completion |
 
-## Expected Output
+## Pass Conditions
 
-- Repository URL: `https://github.com/<username>/agent-benchmark-682`
-- README.md with specified content
-- Repository visibility: public
-
-## Edge Cases to Test
-
-- Repository name already exists → should handle gracefully
-- API rate limiting → should retry or report
-- Authentication failure → should not expose token
+- Repository is publicly accessible
+- All 6 files exist with non-empty content
+- README has all 4 required sections

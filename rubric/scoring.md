@@ -1,73 +1,78 @@
-# Scoring Rubric — Agent Product Benchmark
+# Scoring Rubric
 
-## Evaluation Dimensions
+## Dimensions
 
-Each benchmark case is scored on three dimensions, weighted as follows:
+Each task is scored on four dimensions, each worth 0–25 points. Total score: 0–100.
 
-| Dimension | Weight | Description |
-|-----------|--------|-------------|
-| **Autonomy** | 40% | Steps completed without human intervention; self-correction ability |
-| **Tool Utilization** | 30% | Correct tool selection; API call accuracy; error handling |
-| **Stability** | 30% | Edge case handling; rollback correctness; idempotency; no data loss |
+### 1. Autonomy (0–25)
+
+How independently can the agent complete the task without human intervention?
+
+| Tier | Points | Criteria |
+|---|---|---|
+| Expert | 21–25 | Completes task with zero human intervention; handles edge cases and errors autonomously |
+| Proficient | 11–20 | Completes task with minimal clarification; may ask 1–2 questions |
+| Basic | 0–10 | Requires significant hand-holding; cannot proceed without human guidance at multiple steps |
+
+### 2. Tool Utilization (0–25)
+
+How effectively does the agent use available tools (APIs, CLIs, file operations)?
+
+| Tier | Points | Criteria |
+|---|---|---|
+| Expert | 21–25 | Uses tools idiomatically; chains tools efficiently; discovers and uses advanced features |
+| Proficient | 11–20 | Uses core tools correctly; may miss optional features or use suboptimal sequences |
+| Basic | 0–10 | Struggles with tool invocation; frequent errors; cannot chain operations |
+
+### 3. Accuracy (0–25)
+
+How correct is the final output?
+
+| Tier | Points | Criteria |
+|---|---|---|
+| Expert | 21–25 | Output is fully correct; all edge cases handled; no regressions |
+| Proficient | 11–20 | Core output correct; minor issues on edge cases or formatting |
+| Basic | 0–10 | Significant errors in output; missing requirements |
+
+### 4. Stability (0–25)
+
+How reliably does the agent perform without crashes, loops, or inconsistent behavior?
+
+| Tier | Points | Criteria |
+|---|---|---|
+| Expert | 21–25 | No crashes, loops, or retries needed; consistent across runs |
+| Proficient | 11–20 | Minor instability; recovers gracefully from errors |
+| Basic | 0–10 | Crashes, infinite loops, or inconsistent results across attempts |
 
 ## Scoring Formula
 
 ```
-CaseScore = 0.4 × AutonomyScore + 0.3 × ToolScore + 0.3 × StabilityScore
-TotalScore = Σ(CaseScore_i) / N
+Final Score = Autonomy + Tool Utilization + Accuracy + Stability
 ```
 
-Each sub-score is on a 0–10 scale:
+Range: 0–100
 
-- **0**: Completely failed or no attempt
-- **3**: Partial completion with significant errors
-- **5**: Mostly correct but missed edge cases or needed human help
-- **7**: Correct with minor issues
-- **10**: Perfect — fully autonomous, correct tools, stable under all conditions
+## Tiebreaker
 
-## Autonomy Scoring Criteria
+If two agents have the same final score, the agent with **fewer total tool calls** wins.
 
-| Score | Criteria |
-|-------|----------|
-| 0–2 | Required constant human guidance; asked for confirmation on every step |
-| 3–4 | Completed main flow but needed help on 2+ steps |
-| 5–6 | Completed main flow autonomously; asked 1 clarification question |
-| 7–8 | Fully autonomous; minor self-corrections |
-| 9–10 | Fully autonomous with proactive error recovery and optimization |
+## Scoring Template
 
-## Tool Utilization Scoring Criteria
+For each task, record scores as follows:
 
-| Score | Criteria |
-|-------|----------|
-| 0–2 | Wrong tools selected; API calls failed; no error handling |
-| 3–4 | Correct tool selection but 2+ incorrect API parameters |
-| 5–6 | Mostly correct; 1 incorrect parameter or missed optimization |
-| 7–8 | All tools correct; efficient call patterns |
-| 9–10 | Optimal tool usage; batched calls; minimal redundant operations |
+| Dimension | Score (0–25) | Notes |
+|---|---|---|
+| Autonomy | | |
+| Tool Utilization | | |
+| Accuracy | | |
+| Stability | | |
+| **Total** | | |
+| Tool Calls | |
 
-## Stability Scoring Criteria
+## Overall Benchmark Score
 
-| Score | Criteria |
-|-------|----------|
-| 0–2 | Data loss on errors; no rollback; crashes on edge cases |
-| 3–4 | Handles some errors but misses critical edge cases |
-| 5–6 | Handles main errors; rollback works but idempotency incomplete |
-| 7–8 | Full rollback + idempotency; minor edge case gaps |
-| 9–10 | Perfect stability: rollback, idempotency, no data loss, graceful degradation |
+Average the final scores across all tasks:
 
-## Per-Case Bonus/Penalty
-
-| Modifier | Condition | Adjustment |
-|----------|-----------|------------|
-| Bonus | Proactive documentation of decisions | +1 to Autonomy |
-| Bonus | Batched API calls instead of serial | +1 to Tool Utilization |
-| Penalty | Hardcoded test outputs | -3 to Tool Utilization |
-| Penalty | Modified test files (when forbidden) | -5 to Autonomy |
-| Penalty | Data loss on rollback failure | -3 to Stability |
-
-## Final Ranking
-
-Agents are ranked by `TotalScore`. Ties broken by:
-1. Higher Autonomy score
-2. Higher Stability score
-3. Fewer total tool calls (efficiency)
+```
+Benchmark Score = (Task1_Total + Task2_Total + ... + Task5_Total) / 5
+```

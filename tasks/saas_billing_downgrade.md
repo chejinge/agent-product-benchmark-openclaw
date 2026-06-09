@@ -1,57 +1,51 @@
-# Task 5: SaaS Billing Downgrade
+# Task: SaaS Billing Downgrade
 
 ## Objective
 
-Implement the complete SaaS billing downgrade pipeline: validation → prorated refund → downgrade → rollback → credit note → email → audit → idempotency.
+Downgrade a customer's subscription plan, handling usage limits and feature access.
 
 ## Task Description
 
-Given a project with:
-- `docs/billing_policy.md` — business rules
-- `data/` — customers, subscriptions, invoices, credit notes, email outbox, audit log, API call log
-- `mocks/` — mockBillingApi (refund/rollback), mockSubscriptionApi (downgrade with 409)
-- `src/` — services with intentional bugs
+A customer wants to downgrade from the Enterprise plan to the Professional plan. You must:
 
-1. Read policy, data, mocks, and source files
-2. Run `npm test` to observe failures
-3. **Do NOT modify `tests/`**
-4. **Do NOT hardcode test outputs**
-5. Fix all bugs and implement the complete workflow:
-   - Validate downgrade eligibility (5 conditions)
-   - Calculate prorated refund using **unused days**
-   - Issue refund via mockBillingApi
-   - Downgrade via mockSubscriptionApi with **409 retry**
-   - **Rollback refund** if downgrade fails after refund succeeds
-   - Generate credit note with **negative amount**
-   - Send customer + finance emails
-   - Write audit log with **idempotency guard**
-6. Run `npm test` again — all must pass
+1. **Check current usage** — Verify usage fits within Professional plan limits
+2. **Apply downgrade** — Schedule downgrade at next billing cycle
+3. **Adjust feature access** — Immediately restrict Enterprise-only features
+4. **Notify customer** — Send confirmation with effective date and feature changes
 
-## Bugs to Fix (for scoring reference)
+### Plan Comparison
 
-| # | File | Bug | Fix |
-|---|------|-----|-----|
-| 1 | policy.js | `calculateProratedRefund` uses `usedDays` instead of `unusedDays` | Use `unusedDays` |
-| 2 | policy.js | `validateDowngrade` ignores `hasUnpaid` parameter | Add `hasUnpaid` check |
-| 3 | invoiceService.js | Checks `amount > 0` instead of `status === "unpaid"` | Check `status === "unpaid"` |
-| 4 | billingWorkflow.js | No 409 retry on downgrade API | Retry once after 409 |
-| 5 | billingWorkflow.js | No rollback when downgrade fails after refund | Call `rollbackRefund` |
-| 6 | creditNoteService.js | Amount not negative; no idempotency | `-amount` + idempotency guard |
-| 7 | emailService.js | No idempotency guard | Check existing emails before sending |
-| 8 | auditService.js | No idempotency guard | Check existing audit entries |
+| Feature | Enterprise | Professional |
+|---|---|---|
+| Monthly Price | $99 | $49 |
+| Team Members | Unlimited | 10 |
+| Storage | 100 GB | 25 GB |
+| API Calls/day | 10,000 | 1,000 |
+| Priority Support | Yes | No |
+| Custom Integrations | Yes | No |
+
+### Customer Details
+
+| Field | Value |
+|---|---|
+| Customer ID | CUST-2024-0078 |
+| Current Plan | Enterprise |
+| Current Usage | 8 team members, 18 GB storage, 850 API calls/day |
+| Next Billing Date | 2024-07-01 |
 
 ## Evaluation Criteria
 
-| Dimension | What to Evaluate |
-|-----------|-----------------|
-| Autonomy | Did the agent find all 8 bugs and implement the full workflow? |
-| Tool Utilization | Did it correctly use mock APIs, handle 409, and rollback? |
-| Stability | Is idempotency guaranteed? Does rollback work? No data loss? |
+| Criterion | Weight | Description |
+|---|---|---|
+| Usage check | 25% | Correctly verifies usage fits within new plan limits |
+| Downgrade scheduling | 25% | Downgrade scheduled for correct billing date |
+| Feature restriction | 25% | Enterprise-only features immediately restricted |
+| Customer notification | 15% | Clear confirmation with date and feature changes |
+| Edge case handling | 10% | Handles over-limit scenarios gracefully |
 
-## Expected Test Results
+## Pass Conditions
 
-```
-All SaaS Billing downgrade benchmark tests passed
-```
-
-Including idempotency: second run of CUST-1001 returns `NOT_PRO_ANNUAL` with no duplicate records.
+- Usage is verified to fit Professional plan limits
+- Downgrade is scheduled for 2024-07-01
+- Priority Support and Custom Integrations are immediately disabled
+- Customer receives confirmation notification

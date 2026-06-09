@@ -1,38 +1,42 @@
-# Task 2: CSV File Processing
+# Task: CSV File Processing
 
 ## Objective
 
-Process a sales data CSV file: compute derived columns, detect anomalies, and produce structured output files.
+Read a CSV file, compute summary statistics, and output results as JSON.
 
 ## Task Description
 
-Given `sales_data_agent_benchmark.csv` with columns:
-`order_id, order_date, customer_id, customer, region, product, quantity, unit_price, discount_rate, channel, status, notes`
+Read the file `artifacts/sales_data.csv` and compute the following:
 
-1. **Compute `total` column**: `total = quantity × unit_price` (discount NOT applied)
-2. **Identify anomaly rows**: where `quantity` is missing / non-numeric / ≤ 0, or `unit_price` is missing / non-numeric / ≤ 0
-3. **Output three files**:
-   - `sales_data_updated.csv` — all rows with `total` column (anomaly rows have empty `total`)
-   - `large_orders.csv` — rows where `quantity ≥ 5`
-   - `invalid_rows.csv` — anomaly rows with an `_issues` column explaining why
+1. **Total revenue by region** — Sum of revenue grouped by region
+2. **Top product by revenue** — Product with the highest total revenue
+3. **Monthly revenue trend** — Total revenue grouped by month (YYYY-MM format)
+4. **Average order value** — Total revenue / total quantity
+
+Output the results as a JSON file with this structure:
+
+```json
+{
+  "revenue_by_region": { "Region": amount },
+  "top_product": { "name": "...", "revenue": amount },
+  "monthly_trend": { "YYYY-MM": amount },
+  "average_order_value": amount
+}
+```
 
 ## Evaluation Criteria
 
-| Dimension | What to Evaluate |
-|-----------|-----------------|
-| Autonomy | Did the agent read the CSV, identify columns, and compute without guidance? |
-| Tool Utilization | Did it use appropriate tools (shell scripting, Python, etc.) efficiently? |
-| Stability | Did it handle edge cases (missing values, non-numeric, zero, negative)? |
+| Criterion | Weight | Description |
+|---|---|---|
+| File read | Required | CSV file is successfully read and parsed |
+| Revenue by region | 25% | Correct sums per region |
+| Top product | 25% | Correct product identified with correct total |
+| Monthly trend | 25% | Correct monthly aggregation |
+| Average order value | 15% | Correct calculation |
+| Output format | 10% | Valid JSON matching the specified structure |
 
-## Expected Output
+## Pass Conditions
 
-- 185 data rows, 3 anomaly rows (ORD-2001, ORD-2003, ORD-2004)
-- Total sales (valid rows only): ~$45,453.88
-- Large orders: 45 rows
-
-## Edge Cases
-
-- `quantity = 0` (ORD-2001) → invalid
-- `unit_price` missing (ORD-2003) → invalid
-- `quantity = 'N/A'` (ORD-2004) → invalid
-- Discount rate should NOT be applied to `total`
+- All four calculations are correct (within rounding tolerance)
+- Output is valid JSON
+- No data rows are skipped or duplicated

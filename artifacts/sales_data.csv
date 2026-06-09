@@ -1,0 +1,24 @@
+date,region,product,quantity,revenue
+2024-01-05,North America,WidgetA,150,4500.00
+2024-01-12,North America,WidgetB,80,3200.00
+2024-01-18,Europe,WidgetA,120,3600.00
+2024-01-25,Europe,WidgetC,60,5400.00
+2024-02-02,Asia-Pacific,WidgetB,200,8000.00
+2024-02-08,North America,WidgetC,90,8100.00
+2024-02-15,Asia-Pacific,WidgetA,110,3300.00
+2024-02-22,Europe,WidgetB,75,3000.00
+2024-03-01,North America,WidgetA,180,5400.00
+2024-03-07,Europe,WidgetC,95,8550.00
+2024-03-14,Asia-Pacific,WidgetA,130,3900.00
+2024-03-21,North America,WidgetB,100,4000.00
+2024-03-28,Europe,WidgetA,85,2550.00
+2024-04-04,Asia-Pacific,WidgetC,70,6300.00
+2024-04-11,North America,WidgetA,160,4800.00
+2024-04-18,Europe,WidgetB,140,5600.00
+2024-04-25,Asia-Pacific,WidgetB,170,6800.00
+2024-05-02,North America,WidgetC,55,4950.00
+2024-05-09,Europe,WidgetA,200,6000.00
+2024-05-16,Asia-Pacific,WidgetC,65,6300.00
+2024-05-23,North America,WidgetB,125,5000.00
+2024-05-30,Europe,WidgetC,80,7200.00
+2024-06-06,Asia-Pacific,WidgetA,145,4500.00

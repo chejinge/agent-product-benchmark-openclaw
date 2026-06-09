@@ -1,45 +1,45 @@
-# Results Summary — Agent Capability Benchmark
+# Agent Benchmark Results
 
-> Preliminary results placeholder. Updated after each evaluation round.
+## Overall Summary
 
-## Cross-Agent Comparison
+| Case | Best Performer |
+|---|---|
+| GitHub Creation | TBD |
+| CSV File Processing | TBD |
+| Node.js Bug Fix | TBD |
+| SaaS Refund Workflow | TBD |
+| SaaS Billing Downgrade | TBD |
 
-| Case | Best Performer | Top Score | Notes |
-|------|---------------|-----------|-------|
-| GitHub Repo Creation | TBD | — | — |
-| CSV File Processing | TBD | — | — |
-| Node.js Bug Fix | TBD | — | — |
-| SaaS Refund Workflow | TBD | — | — |
-| SaaS Billing Downgrade | TBD | — | — |
+## Detailed Scores
 
-## Per-Agent Scores
+_Scores will be populated after benchmark runs._
 
-| Agent | Autonomy (avg) | Tool Utilization (avg) | Stability (avg) | Total |
-|-------|---------------|----------------------|----------------|-------|
-| TBD | — | — | — | — |
+### GitHub Repo Creation
 
-## Detailed Case Results
+| Agent | Autonomy | Tool Util | Accuracy | Stability | Total | Tool Calls |
+|---|---|---|---|---|---|---|
+| _TBD_ | | | | | | |
 
-### Case 1: GitHub Repo Creation
-- **Status**: Pending evaluation
-- **Artifacts**: Repository URL, README content
+### CSV File Processing
 
-### Case 2: CSV File Processing
-- **Status**: Pending evaluation
-- **Artifacts**: sales_data_updated.csv, large_orders.csv, invalid_rows.csv
+| Agent | Autonomy | Tool Util | Accuracy | Stability | Total | Tool Calls |
+|---|---|---|---|---|---|---|
+| _TBD_ | | | | | | |
 
-### Case 3: Node.js Bug Fix
-- **Status**: Pending evaluation
-- **Artifacts**: Fixed source files, test output
+### Node.js Bug Fix
 
-### Case 4: SaaS Refund Workflow
-- **Status**: Pending evaluation
-- **Artifacts**: Workflow implementation, API call log
+| Agent | Autonomy | Tool Util | Accuracy | Stability | Total | Tool Calls |
+|---|---|---|---|---|---|---|
+| _TBD_ | | | | | | |
 
-### Case 5: SaaS Billing Downgrade
-- **Status**: Pending evaluation
-- **Artifacts**: Fixed source files, test output, audit log, credit notes, emails
+### SaaS Refund Workflow
 
----
+| Agent | Autonomy | Tool Util | Accuracy | Stability | Total | Tool Calls |
+|---|---|---|---|---|---|---|
+| _TBD_ | | | | | | |
 
-*Last updated: 2026-06-08*
+### SaaS Billing Downgrade
+
+| Agent | Autonomy | Tool Util | Accuracy | Stability | Total | Tool Calls |
+|---|---|---|---|---|---|---|
+| _TBD_ | | | | | | |

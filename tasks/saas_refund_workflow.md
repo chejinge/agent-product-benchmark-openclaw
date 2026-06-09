@@ -1,41 +1,45 @@
-# Task 4: SaaS Refund Workflow
+# Task: SaaS Refund Workflow
 
 ## Objective
 
-Implement a prorated refund workflow for a SaaS subscription downgrade, including rollback on failure and idempotency.
+Process a refund request through a simulated SaaS billing system.
 
 ## Task Description
 
-A customer requests to downgrade from `pro_annual` to `basic_monthly`. The system must:
+A customer requests a refund for their subscription. You must:
 
-1. Validate the downgrade request (customer active, subscription active, no unpaid invoices, not already downgraded)
-2. Calculate prorated refund: `annualPrice × unusedDays / totalDays`, rounded to 2 decimals
-3. Call billing API to issue refund
-4. Call subscription API to downgrade
-5. If downgrade fails after refund succeeds → **rollback the refund**
-6. On success: update subscription, create credit note (negative amount), send emails, write audit log
-7. **Idempotency**: re-running must not duplicate refund, credit note, emails, or audit records
+1. **Validate eligibility** — Check if the customer is within the refund window (30 days from purchase)
+2. **Calculate prorated amount** — If partial month used, calculate the refund as: `(remaining_days / total_days_in_month) * monthly_price`
+3. **Issue refund** — Call the refund API endpoint with the calculated amount
+4. **Send confirmation** — Trigger a confirmation email to the customer
+
+### Customer Details
+
+Customer ID: CUST-2024-0042
+Plan: Professional ($49/month)
+Purchase Date: 2024-05-15
+Refund Request Date: 2024-06-03
+Days Used: 19
+Days Remaining: 12
+
+### API Endpoints (simulated)
+
+- POST /api/refunds — Body: { customer_id, amount, reason } → Returns { refund_id, status }
+- POST /api/emails — Body: { to, template, data } → Returns { message_id, status }
 
 ## Evaluation Criteria
 
-| Dimension | What to Evaluate |
-|-----------|-----------------|
-| Autonomy | Did the agent implement the full workflow end-to-end? |
-| Tool Utilization | Did it correctly call mock APIs, handle 409 retry, and rollback? |
-| Stability | Did it handle rollback correctly? Is idempotency guaranteed? |
+| Criterion | Weight | Description |
+|---|---|---|
+| Eligibility check | 20% | Correctly determines refund eligibility |
+| Proration calculation | 30% | Correct prorated amount calculated |
+| API call correctness | 25% | Refund API called with correct parameters |
+| Email notification | 15% | Confirmation email triggered with correct data |
+| Error handling | 10% | Graceful handling of edge cases |
 
-## Key Scenarios
+## Pass Conditions
 
-| Customer | Expected Result | Reason |
-|----------|----------------|--------|
-| CUST-1001 | ✅ Success | Normal downgrade, refund $687.12 |
-| CUST-1002 | ❌ Rejected | Has unpaid invoice |
-| CUST-1003 | ❌ Rejected | Not on pro_annual plan |
-| CUST-1004 | ✅ Success (after retry) | First call returns 409, retry succeeds |
-| CUST-1005 | ❌ Rolled back | Refund succeeds but downgrade fails → rollback |
-
-## Edge Cases
-
-- Subscription API returns 409 → reload and retry exactly once
-- Refund succeeds but downgrade fails → must rollback refund
-- Re-running same customer → must not duplicate any records
+- Eligibility is correctly determined (within 30-day window)
+- Prorated amount is correct: $49 * (12/30) = $19.60
+- Refund API is called with correct customer ID and amount
+- Confirmation email is sent
